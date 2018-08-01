@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class UserAdapter : RecyclerView.Adapter<UserAdapter.UserHolder>() {
+class UserAdapter : RecyclerView.Adapter<UserAdapter.UserHolder>(), BindableAdapter<Long> {
+
+    override fun setData(items: List<Long>) {
+        userIds = items
+        notifyDataSetChanged()
+    }
 
     var userIds = emptyList<Long>()
 

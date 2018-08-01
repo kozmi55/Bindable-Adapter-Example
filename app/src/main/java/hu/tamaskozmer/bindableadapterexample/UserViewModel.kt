@@ -14,8 +14,6 @@ class UserViewModel : BaseObservable() {
             notifyPropertyChanged(BR.userIds)
         }
 
-    var adapter: UserAdapter? = null
-
     private val updateInterval = 1000L
     private val updateHandler = Handler()
     private val random = Random()
@@ -31,9 +29,6 @@ class UserViewModel : BaseObservable() {
         userIds = List(30) {
             random.nextLong()
         }
-
-        adapter?.userIds = userIds
-        adapter?.notifyDataSetChanged()
     }
 
     fun startUpdates() {
