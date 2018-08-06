@@ -14,6 +14,13 @@ class UserViewModel : BaseObservable() {
             notifyPropertyChanged(BR.userIds)
         }
 
+    @get:Bindable
+    var changedPositions: Set<Int> = mutableSetOf()
+        private set(value) {
+            field = value
+            notifyPropertyChanged(BR.changedPositions)
+        }
+
     private val updateInterval = 1000L
     private val updateHandler = Handler()
     private val random = Random()
@@ -26,9 +33,13 @@ class UserViewModel : BaseObservable() {
     }
 
     private fun updateList() {
-        val pos = random.nextInt(10)
-        userIds[pos] = random.nextLong()
-        notifyPropertyChanged(BR.userIds)
+        val pos1 = random.nextInt(10)
+        userIds[pos1] = random.nextLong()
+
+        val pos2 = random.nextInt(10)
+        userIds[pos2] = random.nextLong()
+
+        changedPositions = setOf(pos1, pos2)
     }
 
     fun startUpdates() {
