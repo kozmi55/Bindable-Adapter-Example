@@ -8,7 +8,7 @@ import java.util.*
 class UserViewModel : BaseObservable() {
 
     @get:Bindable
-    var userIds: List<Long> = emptyList()
+    var userIds: MutableList<Long> = mutableListOf()
         private set(value) {
             field = value
             notifyPropertyChanged(BR.userIds)
@@ -26,13 +26,20 @@ class UserViewModel : BaseObservable() {
     }
 
     private fun updateList() {
-        userIds = List(30) {
-            random.nextLong()
-        }
+        val pos = random.nextInt(10)
+        userIds[pos] = random.nextLong()
+        notifyPropertyChanged(BR.userIds)
     }
 
     fun startUpdates() {
+        initList()
         updateHandler.postDelayed(updateRunnable, updateInterval)
+    }
+
+    private fun initList() {
+        userIds = MutableList(10) {
+            random.nextLong()
+        }
     }
 
     fun stopUpdates() {
